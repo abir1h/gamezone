@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134614721697",
+    "project_id": "sportclub-7ffc0",
+    "storage_bucket": "sportclub-7ffc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134614721697:android:b0bba4f1f56239fb48bce0",
+        "android_client_info": {
+          "package_name": "com.codecell.sports_club"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134614721697-hlcmkhdca371ltkfnngk5102p7dkkqv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnTEvY0Z1oGeK9EbtzH84smFa9ngf070o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134614721697-hlcmkhdca371ltkfnngk5102p7dkkqv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
