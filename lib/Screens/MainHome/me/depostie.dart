@@ -1,14 +1,18 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart'as http;
+import 'package:intl/intl.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sports_club/Screens/Appurl/Appurl.dart';
+import 'package:timer_button/timer_button.dart';
 import '../mainHome.dart';
 class deposite extends StatefulWidget {
   @override
@@ -22,6 +26,7 @@ class _depositeState extends State<deposite> {
   TextEditingController amount=TextEditingController();
   bool isrequsted=false;
   var bkash_,rocket_,nagad_;
+
   Future blaanceofuser;  Future balance() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
@@ -84,6 +89,8 @@ class _depositeState extends State<deposite> {
         if (response.statusCode == 200) {
           setState(() {
             isrequsted=false;
+            count_match();
+
           });
           Navigator.push(context, MaterialPageRoute(builder: (_)=>MainHome()));
           Fluttertoast.showToast(
@@ -119,6 +126,7 @@ class _depositeState extends State<deposite> {
   }
   bool submited=false;
   Future slide;
+  var difference=30;
   Future<List<dynamic>> emergency() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
@@ -139,8 +147,46 @@ class _depositeState extends State<deposite> {
       print("post have no Data${response.body}");
     }
   }
+  var last_deposite;
+  Future count_match() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
 
-  bool ischecked=false;
+    Map<String, String> requestHeaders = {
+      'Accept': 'application/json',
+      'authorization': "Bearer $token"
+    };
+
+    var response = await http.get(Uri.parse(AppUrl.last_depostite), headers: requestHeaders);
+    if (response.statusCode == 200) {
+      print('Get post collected time' + response.body);
+      var userData1 = jsonDecode(response.body)['data'];
+      print(userData1);
+setState(() {
+  last_deposite=userData1['created_at'];
+});
+      final birthday = DateTime.parse(last_deposite);
+      final date2 = DateTime.now();
+
+      setState(() {
+        difference = date2.difference(birthday).inMinutes;
+
+      });
+      print('time:$difference in minutes');
+      print(difference);
+      return userData1;
+    } else {
+      print("post have no Data${response.body}");
+    }
+  }
+check()async {
+  final birthday = DateTime.parse('2022-01-14T13:05:45.000000Z');
+  final date2 = DateTime.now();
+  final difference = date2.difference(birthday).inMinutes;
+  print('time:$difference in minutes');
+  print(difference);
+  }// prints 7:40}
+bool ischecked=false;
   bool rocket=false;
   bool Nagad=false;
   var selected_country;
@@ -150,6 +196,7 @@ class _depositeState extends State<deposite> {
     super.initState();
     slide=emergency();
     func();
+    count_match();
   }
   @override
   Widget build(BuildContext context) {
@@ -280,6 +327,7 @@ body: SingleChildScrollView(
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: amount, style: TextStyle(
                     color: Colors.black
                 ),
@@ -299,7 +347,10 @@ body: SingleChildScrollView(
               ),
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: TextFormField(
+                child: TextFormField(  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    new LengthLimitingTextInputFormatter(4),
+                  ],
                   controller: mobile, style: TextStyle(
                     color: Colors.black
                 ),
@@ -516,8 +567,32 @@ body: SingleChildScrollView(
                         isrequsted=true;
                       });
                       if(_formKey.currentState.validate()){
-withdraw(selected_country, mobile.text, amount.text);
-                        print(selected_country);
+// if(int.parse(difference);)
+                      print(int.parse(difference.toString()));
+                      if(difference>=30){
+                        withdraw(selected_country, mobile.text, amount.text);
+
+                      }else{
+                        setState(() {
+                          isrequsted=false;
+                          count_match();
+
+                        });
+                        var diff=30-difference;
+                        Fluttertoast.showToast(
+
+                            msg: "You can request after $diff minutes.",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.black54,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
+                      }else{
+                        setState(() {
+                          isrequsted=false;
+                        });
                       }
                     },
                     child: Container(

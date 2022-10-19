@@ -175,7 +175,7 @@ class _refereState extends State<refere> {
                     ),
                   ),
                   ElevatedButton(onPressed: ()async{
-                    Share.share('Use my Referral Code- " $username " to get Free Balance!!   https://sportclubff.com', subject: 'Join Sport Club now !');
+                    Share.share('Use my Referral Code- " $username " to get Free Balance!!   https://gamezonetour.com', subject: 'Join Sport Club now !');
 
                   }, child: Text("Refer Now"))
 

@@ -57,28 +57,60 @@ class _register_screenState extends State<register_screen> {
           print('response.body ' + data.toString());
           Fluttertoast.showToast(
 
-              msg: "OTP sent Successfully",
+              msg: "Register Successfully",
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
               backgroundColor: Colors.black54,
               textColor: Colors.white,
               fontSize: 16.0);
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>OtpVerificationScreen(phone: phone,)));
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>login_screen()));
 
         }else{
           print("Fail! ");
           var data = jsonDecode(response.body);
 
-          Fluttertoast.showToast(
 
-              msg: data['message'],
+          data['error']['phone'] != null && data['error']['username'] != null
+              ? Fluttertoast.showToast(
+              msg: data['error']['phone'][0] +
+                  '\n' +
+                  data['error']['username'][0],
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 16.0)
+              : data['error']['phone'] == null &&
+              data['error']['username'] != null
+              ? Fluttertoast.showToast(
+              msg: data['error']['username'][0],
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 16.0)
+              : data['error']['phone'] != null &&
+              data['error']['username'] == null
+              ? Fluttertoast.showToast(
+              msg: data['error']['phone'][0],
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 16.0)
+              : Fluttertoast.showToast(
+              msg: 'error',
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black54,
               textColor: Colors.white,
               fontSize: 16.0);
+
           return response.body;
 
         }

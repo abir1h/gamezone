@@ -11,6 +11,7 @@ import 'package:sports_club/Screens/MainHome/Bottom_nav_menues/Play.dart';
 import 'package:sports_club/Screens/MainHome/Bottom_nav_menues/me.dart';
 import 'package:sports_club/Screens/MainHome/Bottom_nav_menues/ongoing.dart';
 import 'package:sports_club/Screens/MainHome/Bottom_nav_menues/shop.dart';
+import 'package:sports_club/Screens/Starter_screens/alerts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'Bottom_nav_menues/Result.dart';
@@ -77,9 +78,41 @@ ongoing_list(),
     super.initState();
     telegram();
     get_playerd();
-
+    badge();
 }
+  var badge_text;
+  Future badge() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
 
+    Map<String, String> requestHeaders = {
+      'Accept': 'application/json',
+      'authorization': "Bearer $token"
+    };
+
+    var response = await http.get(Uri.parse(AppUrl.motice), headers: requestHeaders);
+    if (response.statusCode == 200) {
+      print('Get post collected' + response.body);
+      var userData1 = jsonDecode(response.body)['data'];
+      print('try');
+      print(userData1);
+      setState(() {
+        badge_text=userData1['notice'];
+      });
+     if(badge_text!=null){
+       Future.delayed(Duration.zero, () {
+         // context can be used here...
+         showDialog(
+             context: context,
+             builder: (context){
+               return  alert_dialogs(text_par: badge_text,);
+             });});
+     }
+      return userData1;
+    } else {
+      print("post have no Data${response.body}");
+    }
+  }
   final PageStorageBucket bucket=PageStorageBucket();
   Widget currentScreen=play();
   @override
@@ -131,7 +164,7 @@ appBar: AppBar(
           onTap: (){
             print(p_id);
           },
-          child: Text("Sport  Club".toUpperCase(),style: GoogleFonts.lato(
+          child: Text("Game Zone".toUpperCase(),style: GoogleFonts.lato(
               color: Colors.white,
               fontWeight: FontWeight.w800,
               fontSize: 18
@@ -142,6 +175,18 @@ appBar: AppBar(
     ],
   ),
   actions: [
+    FloatingActionButton(
+      backgroundColor: Colors.transparent,
+      onPressed: ()async{
+        var url=telegram_link;
+        if (await canLaunch(url))
+          await launch(url);
+        else
+          // can't launch url, there is some error
+          throw "Could not launch $url";
+      },
+      child: Image.asset('Images/wh.png',height: 40,width: 40,),
+    ),
       InkWell(
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (_)=>my_wallet()));
@@ -149,23 +194,24 @@ appBar: AppBar(
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('Images/wal.png',height: 50,width: 50,),
+            child: Image.asset('Images/wallet.jpeg',height: 40,width: 40,),
           ))
   ],
 ),
 
 
-        floatingActionButton: FloatingActionButton(
-          onPressed: ()async{
-            var url=telegram_link;
-            if (await canLaunch(url))
-            await launch(url);
-            else
-            // can't launch url, there is some error
-            throw "Could not launch $url";
-          },
-          child: Image.asset('Images/telegram.png',height: 30,width: 30,),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: Colors.transparent,
+        //   onPressed: ()async{
+        //     var url=telegram_link;
+        //     if (await canLaunch(url))
+        //     await launch(url);
+        //     else
+        //     // can't launch url, there is some error
+        //     throw "Could not launch $url";
+        //   },
+        //   child: Image.asset('Images/wh.png',height: 50,width: 50,),
+        // ),
         body: _widgetOptions.elementAt(_selectedIndex),
 
         bottomNavigationBar: BottomNavigationBar(

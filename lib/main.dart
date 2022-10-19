@@ -10,7 +10,7 @@ void main() {
 
   Firebase.initializeApp();
 
-  OneSignal.shared.init("185cc73a-68a3-4868-9058-5633f5aeb0a4", iOSSettings: {
+  OneSignal.shared.init("cd648c60-7fea-4910-a6b1-1a92c182fa49", iOSSettings: {
     OSiOSSettings.autoPrompt: false,
     OSiOSSettings.inAppLaunchUrl: false
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Game Zone',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.

@@ -9,11 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sports_club/Screens/Appurl/Appurl.dart';
 import 'package:http/http.dart' as http;
-import 'package:sports_club/Screens/MainHome/Daily_matches/Result.dart';
+import 'package:show_up_animation/show_up_animation.dart';
+import 'package:sports_club/Screens/Appurl/Appurl.dart';
 
 import 'package:sports_club/Screens/MainHome/Daily_matches/prize_details.dart';
+import 'package:sports_club/Screens/MainHome/Daily_matches/upload_ss.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ongoing_list extends StatefulWidget {
@@ -153,394 +154,1569 @@ class _ongoing_listState extends State<ongoing_list> {
                                         var game = snapshot.data[index]
                                         ['game_player_count'];
                                         var left_ = total - game;
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                              const EdgeInsets.all(8.0),
-                                              child: InkWell(
-                                                onTap: () {
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     MaterialPageRoute(
-                                                  //         builder: (_) =>
-                                                  //             result_sc(id:snapshot.data[index]['id'] .toString(),)));
-                                                },
-                                                child: Container(
-                                                  width: width / 1,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          10)),
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                              Padding(
-                                                                padding:
-                                                                const EdgeInsets.all(
-                                                                    8.0),
+                                        return snapshot.data[index]
+                                        ['game_type']!='l'?index .floor().isEven?ShowUpAnimation(
+                                          delayStart: Duration(milliseconds: 50),
+                                          animationDuration: Duration(milliseconds: 1000),
+                                          curve: Curves.easeIn,
+                                          direction: Direction.horizontal,
+                                          offset: 0.5,
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (_) =>
+                                                    //             result_sc(id:snapshot.data[index]['id'] .toString(),)));
+                                                  },
+                                                  child: Container(
+                                                    width: width / 1,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            10)),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets.all(
+                                                                      8.0),
+                                                                  child:
+                                                                  Container(
+                                                                    child:
+                                                                    Row(
+                                                                      children: [
+                                                                        CircularProfileAvatar(
+                                                                            null,
+                                                                            borderColor: Colors.transparent,
+                                                                            child: CachedNetworkImage(
+                                                                              imageUrl: 'https://images.financialexpress.com/2019/08/freefire.jpg',
+                                                                              fit: BoxFit.cover,
+                                                                              placeholder: (context, url) => CircularProgressIndicator(),
+                                                                              errorWidget: (context, url, error) => Icon(Icons.person),
+                                                                            ),
+                                                                            elevation: 5,
+                                                                            radius: 30),
+                                                                        Container(
+                                                                          child:
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(snapshot.data[index]['title'] + ' | ' + snapshot.data[index]['control_type'] + ' | ' + snapshot.data[index]['game_id'],
+                                                                                    style: GoogleFonts.lato(
+                                                                                      color: Colors.black,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    )),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text('Time : ' + snapshot.data[index]['date'],
+                                                                                        style: GoogleFonts.lato(
+                                                                                          color: Colors.red,
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                        )),
+                                                                                  ],
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: height / 80,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
                                                                 child:
                                                                 Container(
                                                                   child:
-                                                                  Row(
+                                                                  Column(
                                                                     children: [
-                                                                      CircularProfileAvatar(
-                                                                          null,
-                                                                          borderColor: Colors.transparent,
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: 'https://images.financialexpress.com/2019/08/freefire.jpg',
-                                                                            fit: BoxFit.cover,
-                                                                            placeholder: (context, url) => CircularProgressIndicator(),
-                                                                            errorWidget: (context, url, error) => Icon(Icons.person),
-                                                                          ),
-                                                                          elevation: 5,
-                                                                          radius: 30),
-                                                                      Container(
-                                                                        child:
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.all(8.0),
-                                                                          child: Column(
-                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(snapshot.data[index]['title'] + ' | ' + snapshot.data[index]['control_type'] + ' | ' + snapshot.data[index]['game_id'],
-                                                                                  style: GoogleFonts.lato(
-                                                                                    color: Colors.black,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                  )),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Text('Time : ' + snapshot.data[index]['date'],
-                                                                                      style: GoogleFonts.lato(
-                                                                                        color: Colors.red,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                      )),
-                                                                                ],
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                                      Text(
+                                                                          'Total Prize',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['total_prize'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
                                                                     ],
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Per Kill',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['per_kill'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Entry Fee',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['entry_fee'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height / 80,
-                                                      ),
-                                                      Container(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                              Container(
-                                                                child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Total Prize',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text('৳ ' + snapshot.data[index]['total_prize'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child:
-                                                              Container(
-                                                                child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Per Kill',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text('৳ ' + snapshot.data[index]['per_kill'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child:
-                                                              Container(
-                                                                child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Entry Fee',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text('৳ ' + snapshot.data[index]['entry_fee'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        SizedBox(
+                                                          height: height / 60,
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height / 60,
-                                                      ),
-                                                      Container(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                              Container(
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
                                                                 child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Type',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text(
-                                                                        snapshot.data[index][
-                                                                        'type'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Type',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'type'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Expanded(
-                                                              child:
-                                                              Container(
+                                                              Expanded(
                                                                 child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Version',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text(
-                                                                        snapshot.data[index][
-                                                                        'version'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Version',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'version'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Expanded(
-                                                              child:
-                                                              Container(
+                                                              Expanded(
                                                                 child:
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                        'Map',
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.grey,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                    Text(
-                                                                        snapshot.data[index][
-                                                                        'map'],
-                                                                        style: GoogleFonts.lato(
-                                                                            color: Colors.black,
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 14)),
-                                                                  ],
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Map',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'map'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Container(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child: Padding(
-                                                                  padding: const EdgeInsets.all(8.0),
-                                                                  child:snapshot.data[index]['result']!=null? snapshot.data[index]['result']['link'] != null
-                                                                      ? Container(
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child:snapshot.data[index]['result']!=null? snapshot.data[index]['result']['link'] != null
+                                                                        ? Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () async {
+                                                                            print(snapshot.data[index]['result']['link']);
+                                                                            var url = snapshot.data[index]['result']['link'];
+                                                                            if (await canLaunch(url))
+                                                                              await launch(url);
+                                                                            else
+                                                                              // can't launch url, there is some error
+                                                                              throw "Could not launch $url";
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: ()  {
+                                                                            Fluttertoast.showToast(
+
+                                                                                msg: "Not Uploaded Yet!",
+                                                                                toastLength: Toast.LENGTH_LONG,
+                                                                                gravity: ToastGravity.BOTTOM,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.black54,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        )):Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: ()  {
+                                                                            Fluttertoast.showToast(
+
+                                                                                msg: "Not Uploaded Yet!",
+                                                                                toastLength: Toast.LENGTH_LONG,
+                                                                                gravity: ToastGravity.BOTTOM,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.black54,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin:EdgeInsets.only(left:8,right:8),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child:  snapshot.data[index]['game_player_have']>=1? Container(
+                                                                        margin:EdgeInsets.only(right:10)                                       ,
+                                                                        child: ElevatedButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            showDialog(
+                                                                                context:
+                                                                                context,
+                                                                                builder:
+                                                                                    (context) {
+                                                                                  return upload_ss(
+                                                                                    id: snapshot.data[index]['id'].toString(),
+                                                                                  );
+                                                                                });
+                                                                          },
+                                                                          style: ElevatedButton
+                                                                              .styleFrom(
+                                                                            primary:
+                                                                            Colors.white, //background color of button
+                                                                            side: BorderSide(
+                                                                                width:
+                                                                                3,
+                                                                                color:
+                                                                                Colors.blue), //border width and color
+                                                                            elevation:
+                                                                            3, //elevation of button
+                                                                          ),
+                                                                          child:
+                                                                          Text(
+                                                                            "Uplaod SS",
+                                                                            style:
+                                                                            TextStyle(
+                                                                              color:
+                                                                              Colors.blue,
+                                                                              fontWeight:
+                                                                              FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        )):Container(),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child:
+                                                                  Container(
+                                                                      margin:EdgeInsets.only(right:10)                                       ,
                                                                       child: ElevatedButton(
-                                                                        onPressed: () async {
-                                                                          print(snapshot.data[index]['result']['link']);
-                                                                          var url = snapshot.data[index]['result']['link'];
-                                                                          if (await canLaunch(url))
-                                                                            await launch(url);
-                                                                          else
-                                                                            // can't launch url, there is some error
-                                                                            throw "Could not launch $url";
+                                                                        onPressed:
+                                                                            () {
+                                                                          showDialog(
+                                                                              context:
+                                                                              context,
+                                                                              builder:
+                                                                                  (context) {
+                                                                                return prize_details(
+                                                                                  id: snapshot.data[index]['id'].toString(),
+                                                                                );
+                                                                              });
                                                                         },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          primary: Colors.blue, //background color of button
-                                                                          elevation: 3, //elevation of button
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                          Colors.white, //background color of button
+                                                                          side: BorderSide(
+                                                                              width:
+                                                                              3,
+                                                                              color:
+                                                                              Colors.blue), //border width and color
+                                                                          elevation:
+                                                                          3, //elevation of button
                                                                         ),
-                                                                        child: Text(
-                                                                          "Spectate".toUpperCase(),
-                                                                          style: TextStyle(
-                                                                            color: Colors.white,
-                                                                            fontWeight: FontWeight.bold,
+                                                                        child:
+                                                                        Text(
+                                                                          "Total Prize Details",
+                                                                          style:
+                                                                          TextStyle(
+                                                                            color:
+                                                                            Colors.blue,
+                                                                            fontWeight:
+                                                                            FontWeight.bold,
                                                                           ),
                                                                         ),
-                                                                      ))
-                                                                      : Container(
-                                                                      child: ElevatedButton(
-                                                                        onPressed: ()  {
-                                                                          Fluttertoast.showToast(
-
-                                                                              msg: "Not Uploaded Yet!",
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.BOTTOM,
-                                                                              timeInSecForIosWeb: 1,
-                                                                              backgroundColor: Colors.black54,
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 16.0);
-                                                                        },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          primary: Colors.blue, //background color of button
-                                                                          elevation: 3, //elevation of button
-                                                                        ),
-                                                                        child: Text(
-                                                                          "Spectate".toUpperCase(),
-                                                                          style: TextStyle(
-                                                                            color: Colors.white,
-                                                                            fontWeight: FontWeight.bold,
-                                                                          ),
-                                                                        ),
-                                                                      )):Container(
-                                                                      child: ElevatedButton(
-                                                                        onPressed: ()  {
-                                                                          Fluttertoast.showToast(
-
-                                                                              msg: "Not Uploaded Yet!",
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.BOTTOM,
-                                                                              timeInSecForIosWeb: 1,
-                                                                              backgroundColor: Colors.black54,
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 16.0);
-                                                                        },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          primary: Colors.blue, //background color of button
-                                                                          elevation: 3, //elevation of button
-                                                                        ),
-                                                                        child: Text(
-                                                                          "Spectate".toUpperCase(),
-                                                                          style: TextStyle(
-                                                                            color: Colors.white,
-                                                                            fontWeight: FontWeight.bold,
-                                                                          ),
-                                                                        ),
-                                                                      ))),
+                                                                      )),
+                                                                ),
+                                                              ],
                                                             ),
-
-                                                          ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Container(
-                                                        margin:EdgeInsets.only(left:MediaQuery.of(context).size.width/2)                                       ,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .end,
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                              Container(
-                                                                  margin:EdgeInsets.only(right:10)                                       ,
-                                                                  child: ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      showDialog(
-                                                                          context:
-                                                                          context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return prize_details(
-                                                                              id: snapshot.data[index]['id'].toString(),
-                                                                            );
-                                                                          });
-                                                                    },
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary:
-                                                                      Colors.white, //background color of button
-                                                                      side: BorderSide(
-                                                                          width:
-                                                                          3,
-                                                                          color:
-                                                                          Colors.blue), //border width and color
-                                                                      elevation:
-                                                                      3, //elevation of button
-                                                                    ),
-                                                                    child:
-                                                                    Text(
-                                                                      "Total Prize Details",
-                                                                      style:
-                                                                      TextStyle(
-                                                                        color:
-                                                                        Colors.blue,
-                                                                        fontWeight:
-                                                                        FontWeight.bold,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            )
-                                          ],
+                                              SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ),
+                                        ):
+                                        ShowUpAnimation(
+                                          delayStart: Duration(milliseconds: 50),
+                                          animationDuration: Duration(milliseconds: 1000),
+                                          curve: Curves.easeIn,
+                                          direction: Direction.horizontal,
+                                          offset: -0.5,
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (_) =>
+                                                    //             result_sc(id:snapshot.data[index]['id'] .toString(),)));
+                                                  },
+                                                  child: Container(
+                                                    width: width / 1,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            10)),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets.all(
+                                                                      8.0),
+                                                                  child:
+                                                                  Container(
+                                                                    child:
+                                                                    Row(
+                                                                      children: [
+                                                                        CircularProfileAvatar(
+                                                                            null,
+                                                                            borderColor: Colors.transparent,
+                                                                            child: CachedNetworkImage(
+                                                                              imageUrl: 'https://images.financialexpress.com/2019/08/freefire.jpg',
+                                                                              fit: BoxFit.cover,
+                                                                              placeholder: (context, url) => CircularProgressIndicator(),
+                                                                              errorWidget: (context, url, error) => Icon(Icons.person),
+                                                                            ),
+                                                                            elevation: 5,
+                                                                            radius: 30),
+                                                                        Container(
+                                                                          child:
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(snapshot.data[index]['title'] + ' | ' + snapshot.data[index]['control_type'] + ' | ' + snapshot.data[index]['game_id'],
+                                                                                    style: GoogleFonts.lato(
+                                                                                      color: Colors.black,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    )),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text('Time : ' + snapshot.data[index]['date'],
+                                                                                        style: GoogleFonts.lato(
+                                                                                          color: Colors.red,
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                        )),
+                                                                                  ],
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: height / 80,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Total Prize',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['total_prize'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Per Kill',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['per_kill'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Entry Fee',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text('৳ ' + snapshot.data[index]['entry_fee'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: height / 60,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Type',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'type'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Version',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'version'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Map',
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.grey,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                      Text(
+                                                                          snapshot.data[index][
+                                                                          'map'],
+                                                                          style: GoogleFonts.lato(
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child:snapshot.data[index]['result']!=null? snapshot.data[index]['result']['link'] != null
+                                                                        ? Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () async {
+                                                                            print(snapshot.data[index]['result']['link']);
+                                                                            var url = snapshot.data[index]['result']['link'];
+                                                                            if (await canLaunch(url))
+                                                                              await launch(url);
+                                                                            else
+                                                                              // can't launch url, there is some error
+                                                                              throw "Could not launch $url";
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: ()  {
+                                                                            Fluttertoast.showToast(
+
+                                                                                msg: "Not Uploaded Yet!",
+                                                                                toastLength: Toast.LENGTH_LONG,
+                                                                                gravity: ToastGravity.BOTTOM,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.black54,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        )):Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: ()  {
+                                                                            Fluttertoast.showToast(
+
+                                                                                msg: "Not Uploaded Yet!",
+                                                                                toastLength: Toast.LENGTH_LONG,
+                                                                                gravity: ToastGravity.BOTTOM,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.black54,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin:EdgeInsets.only(left:8,right:8),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                              .end,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child:  snapshot.data[index]['game_player_have']>=1? Container(
+                                                                      margin:EdgeInsets.only(right:10)                                       ,
+                                                                      child: ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          showDialog(
+                                                                              context:
+                                                                              context,
+                                                                              builder:
+                                                                                  (context) {
+                                                                                return upload_ss(
+                                                                                  id: snapshot.data[index]['id'].toString(),
+                                                                                );
+                                                                              });
+                                                                        },
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                          Colors.white, //background color of button
+                                                                          side: BorderSide(
+                                                                              width:
+                                                                              3,
+                                                                              color:
+                                                                              Colors.blue), //border width and color
+                                                                          elevation:
+                                                                          3, //elevation of button
+                                                                        ),
+                                                                        child:
+                                                                        Text(
+                                                                          "Uplaod SS",
+                                                                          style:
+                                                                          TextStyle(
+                                                                            color:
+                                                                            Colors.blue,
+                                                                            fontWeight:
+                                                                            FontWeight.bold,
+                                                                          ),
+                                                                        ),
+                                                                      )):Container(),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                    margin:EdgeInsets.only(right:10)                                       ,
+                                                                    child: ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        showDialog(
+                                                                            context:
+                                                                            context,
+                                                                            builder:
+                                                                                (context) {
+                                                                              return prize_details(
+                                                                                id: snapshot.data[index]['id'].toString(),
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                      style: ElevatedButton
+                                                                          .styleFrom(
+                                                                        primary:
+                                                                        Colors.white, //background color of button
+                                                                        side: BorderSide(
+                                                                            width:
+                                                                            3,
+                                                                            color:
+                                                                            Colors.blue), //border width and color
+                                                                        elevation:
+                                                                        3, //elevation of button
+                                                                      ),
+                                                                      child:
+                                                                      Text(
+                                                                        "Total Prize Details",
+                                                                        style:
+                                                                        TextStyle(
+                                                                          color:
+                                                                          Colors.blue,
+                                                                          fontWeight:
+                                                                          FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ),
+                                        ):index .floor().isEven?
+                                        ShowUpAnimation( delayStart: Duration(milliseconds: 50),
+                                          animationDuration: Duration(milliseconds: 1000),
+                                          curve: Curves.easeIn,
+                                          direction: Direction.horizontal,
+                                          offset: 0.5,
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets
+                                                    .all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (_) =>
+                                                    //             result_sc(id:snapshot.data[index]['id'] .toString(),)));
+                                                  },
+                                                  child: Container(
+                                                    width: width / 1,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            10)),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets.all(8.0),
+                                                                  child:
+                                                                  Container(
+                                                                    child:
+                                                                    Row(
+                                                                      children: [
+                                                                        CircularProfileAvatar(null,
+                                                                            borderColor: Colors.transparent,
+                                                                            child:  Image.asset(
+                                                                              "Images/f5.jpeg",
+                                                                              fit: BoxFit.cover,
+                                                                            ),
+                                                                            elevation: 5,
+                                                                            radius: 30),
+                                                                        Container(
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(snapshot.data[index]['title'] + ' | ' + snapshot.data[index]['control_type'] + ' | ' + snapshot.data[index]['game_id'],
+                                                                                    style: GoogleFonts.lato(
+                                                                                      color: Colors.black,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    )),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text('Time : ' + snapshot.data[index]['date'],
+                                                                                        style: GoogleFonts.lato(
+                                                                                          color: Colors.red,
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                        )),
+                                                                                  ],
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                          height /
+                                                              80,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Total Prize', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(' ৳ ' + snapshot.data[index]['total_prize'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              // Expanded(
+                                                              //   child:
+                                                              //   Container(
+                                                              //     child:
+                                                              //     Column(
+                                                              //       children: [
+                                                              //         Text('Per Kill', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                              //         Text(' ৳ ' + snapshot.data[index]['per_kill'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                              //       ],
+                                                              //     ),
+                                                              //   ),
+                                                              // ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Entry Fee', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(' ৳ ' + snapshot.data[index]['entry_fee'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                          height /
+                                                              60,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Type', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(snapshot.data[index]['type'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Board Type', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(snapshot.data[index]['version'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: snapshot.data[index]['result'] != null
+                                                                        ? snapshot.data[index]['result']['link'] != null
+                                                                        ? Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () async {
+                                                                            print(snapshot.data[index]['result']['link']);
+                                                                            var url = snapshot.data[index]['result']['link'];
+                                                                            if (await canLaunch(url))
+                                                                              await launch(url);
+                                                                            else
+                                                                              // can't launch url, there is some error
+                                                                              throw "Could not launch $url";
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.transparent, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () {
+                                                                            Fluttertoast.showToast(msg: "Not Uploaded Yet!", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.white54, textColor: Colors.white, fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () {
+                                                                            Fluttertoast.showToast(msg: "Not Uploaded Yet!", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.white54, textColor: Colors.white, fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child:  snapshot.data[index]['game_player_have']>=1? Container(
+                                                                      margin:EdgeInsets.only(right:10)                                       ,
+                                                                      child: ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          showDialog(
+                                                                              context:
+                                                                              context,
+                                                                              builder:
+                                                                                  (context) {
+                                                                                return upload_ss(
+                                                                                  id: snapshot.data[index]['id'].toString(),
+                                                                                );
+                                                                              });
+                                                                        },
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                          Colors.white, //background color of button
+                                                                          side: BorderSide(
+                                                                              width:
+                                                                              3,
+                                                                              color:
+                                                                              Colors.blue), //border width and color
+                                                                          elevation:
+                                                                          3, //elevation of button
+                                                                        ),
+                                                                        child:
+                                                                        Text(
+                                                                          "Uplaod SS",
+                                                                          style:
+                                                                          TextStyle(
+                                                                            color:
+                                                                            Colors.blue,
+                                                                            fontWeight:
+                                                                            FontWeight.bold,
+                                                                          ),
+                                                                        ),
+                                                                      )):Container(),
+                                                                ),
+                                                              ),
+
+                                                              Expanded(
+                                                                child: Container(
+                                                                    margin: EdgeInsets.only(right: 10),
+                                                                    child: ElevatedButton(
+                                                                      onPressed: () {
+                                                                        showDialog(
+                                                                            context: context,
+                                                                            builder: (context) {
+                                                                              return prize_details(
+                                                                                id: snapshot.data[index]['id'].toString(),
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                      style: ElevatedButton.styleFrom(
+                                                                        primary: Colors.white, //background color of button
+                                                                        side: BorderSide(width: 3, color: Colors.blue), //border width and color
+                                                                        elevation: 3, //elevation of button
+                                                                      ),
+                                                                      child: Text(
+                                                                        "Total Prize Details",
+                                                                        style: TextStyle(
+                                                                          color: Colors.blue,
+                                                                          fontWeight: FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                            :ShowUpAnimation( delayStart: Duration(milliseconds: 50),
+                                          animationDuration: Duration(milliseconds: 1000),
+                                          curve: Curves.easeIn,
+                                          direction: Direction.horizontal,
+                                          offset: -0.5,
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets
+                                                    .all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (_) =>
+                                                    //             result_sc(id:snapshot.data[index]['id'] .toString(),)));
+                                                  },
+                                                  child: Container(
+                                                    width: width / 1,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            10)),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets.all(8.0),
+                                                                  child:
+                                                                  Container(
+                                                                    child:
+                                                                    Row(
+                                                                      children: [
+                                                                        CircularProfileAvatar(null,
+                                                                            borderColor: Colors.transparent,
+                                                                            child:  Image.asset(
+                                                                              "Images/f5.jpeg",
+                                                                              fit: BoxFit.cover,
+                                                                            ),
+                                                                            elevation: 5,
+                                                                            radius: 30),
+                                                                        Container(
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(snapshot.data[index]['title'] + ' | ' + snapshot.data[index]['control_type'] + ' | ' + snapshot.data[index]['game_id'],
+                                                                                    style: GoogleFonts.lato(
+                                                                                      color: Colors.black,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                    )),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text('Time : ' + snapshot.data[index]['date'],
+                                                                                        style: GoogleFonts.lato(
+                                                                                          color: Colors.red,
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                        )),
+                                                                                  ],
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                          height /
+                                                              80,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Total Prize', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(' ৳ ' + snapshot.data[index]['total_prize'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              // Expanded(
+                                                              //   child:
+                                                              //   Container(
+                                                              //     child:
+                                                              //     Column(
+                                                              //       children: [
+                                                              //         Text('Per Kill', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                              //         Text(' ৳ ' + snapshot.data[index]['per_kill'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                              //       ],
+                                                              //     ),
+                                                              //   ),
+                                                              // ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Entry Fee', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(' ৳ ' + snapshot.data[index]['entry_fee'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                          height /
+                                                              60,
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Type', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(snapshot.data[index]['type'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Container(
+                                                                  child:
+                                                                  Column(
+                                                                    children: [
+                                                                      Text('Board Type', style: GoogleFonts.lato(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                      Text(snapshot.data[index]['version'], style: GoogleFonts.lato(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: snapshot.data[index]['result'] != null
+                                                                        ? snapshot.data[index]['result']['link'] != null
+                                                                        ? Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () async {
+                                                                            print(snapshot.data[index]['result']['link']);
+                                                                            var url = snapshot.data[index]['result']['link'];
+                                                                            if (await canLaunch(url))
+                                                                              await launch(url);
+                                                                            else
+                                                                              // can't launch url, there is some error
+                                                                              throw "Could not launch $url";
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.transparent, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () {
+                                                                            Fluttertoast.showToast(msg: "Not Uploaded Yet!", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.white54, textColor: Colors.white, fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))
+                                                                        : Container(
+                                                                        child: ElevatedButton(
+                                                                          onPressed: () {
+                                                                            Fluttertoast.showToast(msg: "Not Uploaded Yet!", toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.white54, textColor: Colors.white, fontSize: 16.0);
+                                                                          },
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            primary: Colors.blue, //background color of button
+                                                                            elevation: 3, //elevation of button
+                                                                          ),
+                                                                          child: Text(
+                                                                            "Spectate".toUpperCase(),
+                                                                            style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ))),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child:  snapshot.data[index]['game_player_have']>=1? Container(
+                                                                      margin:EdgeInsets.only(right:10)                                       ,
+                                                                      child: ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          showDialog(
+                                                                              context:
+                                                                              context,
+                                                                              builder:
+                                                                                  (context) {
+                                                                                return upload_ss(
+                                                                                  id: snapshot.data[index]['id'].toString(),
+                                                                                );
+                                                                              });
+                                                                        },
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                          Colors.white, //background color of button
+                                                                          side: BorderSide(
+                                                                              width:
+                                                                              3,
+                                                                              color:
+                                                                              Colors.blue), //border width and color
+                                                                          elevation:
+                                                                          3, //elevation of button
+                                                                        ),
+                                                                        child:
+                                                                        Text(
+                                                                          "Uplaod SS",
+                                                                          style:
+                                                                          TextStyle(
+                                                                            color:
+                                                                            Colors.blue,
+                                                                            fontWeight:
+                                                                            FontWeight.bold,
+                                                                          ),
+                                                                        ),
+                                                                      )):Container(),
+                                                                ),
+                                                              ),
+
+                                                              Expanded(
+                                                                child: Container(
+                                                                    margin: EdgeInsets.only(right: 10),
+                                                                    child: ElevatedButton(
+                                                                      onPressed: () {
+                                                                        showDialog(
+                                                                            context: context,
+                                                                            builder: (context) {
+                                                                              return prize_details(
+                                                                                id: snapshot.data[index]['id'].toString(),
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                      style: ElevatedButton.styleFrom(
+                                                                        primary: Colors.white, //background color of button
+                                                                        side: BorderSide(width: 3, color: Colors.blue), //border width and color
+                                                                        elevation: 3, //elevation of button
+                                                                      ),
+                                                                      child: Text(
+                                                                        "Total Prize Details",
+                                                                        style: TextStyle(
+                                                                          color: Colors.blue,
+                                                                          fontWeight: FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ),
                                         );
                                       }),
                                 ),

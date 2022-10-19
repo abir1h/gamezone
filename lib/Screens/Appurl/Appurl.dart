@@ -1,13 +1,16 @@
 class AppUrl {
-  static const String liveBaseURL = "https://sportclubff.com/api/";
-  static const String pic_url1 = "https://sportclubff.com/";
+  static const String liveBaseURL = "https://gamezonetour.com/api/";
+  static const String pic_url1 = "https://gamezonetour.com/";
   static const String pic_url2 = "http://bestaid.codebuzzbd.com/public/";
+  static const String uploadss = baseURL + "auth/show/ongoing/upload/image";
+  static const String mapk = baseURL + "m/apk";
 
   static const String baseURL = liveBaseURL;
   static const String login = baseURL + "login";
   static const String reg = baseURL + "register";
   static const String maintanence = baseURL + "maintain";
   static const String apk = baseURL + "apk";
+  static const String SignUp_link = baseURL + "youtubeSignup-link";
   static const String otp = baseURL + "otp";
   static const String slider = baseURL + "auth/show/slider";
   static const String shop = baseURL + "auth/show/shop";
@@ -35,5 +38,9 @@ class AppUrl {
   static const String telegram = baseURL + "auth/show/telegram";
   static const String complain = baseURL + "auth/show/complain";
   static const String ongoin = baseURL + "auth/show/ongoing";
+  static const String last_depostite = baseURL + "auth/get/deposit/time";
+  static const String notice = baseURL +"notice";
+  static const String motice = baseURL +"motice";
+
 
 }

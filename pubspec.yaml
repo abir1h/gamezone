@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 5.0.0+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cached_network_image: ^3.1.0
   flutter_spinkit: ^5.1.0
+  badges: ^2.0.2
   google_fonts: ^2.1.0
   persistent_bottom_nav_bar: ^4.0.2
   circular_profile_avatar: ^2.0.5
@@ -51,6 +52,14 @@ dependencies:
   flutter_dropdown: ^0.0.8
   font_awesome_flutter: ^9.2.0
   device_info: ^2.0.3
+  timer_button: ^2.0.0
+  show_up_animation: ^2.0.0
+  image_picker: ^0.8.4+5
+  marquee: ^2.2.1
+  ota_update: ^4.0.1
+  package_info: ^2.0.2
+
+
 
 
 
@@ -64,7 +73,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "Images/app_icon.png"
+  image_path: "Images/icon.jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,8 +92,10 @@ flutter:
     - Images/i1.jpg
     - Images/i2.jpg
     - Images/i3.jpg
+    - Images/wh.png
     - Images/app_icon.png
     - Images/freefire.jpg
+    - Images/wallet.jpeg
     - Images/i4.jpg
     - Images/g.gif
     - Images/un.gif
@@ -92,6 +103,7 @@ flutter:
     - Images/OTP Image.svg
     - Images/wallet.png
     - Images/bkas.png
+    - Images/f5.jpeg
     - Images/rocket.png
     - Images/nagad.jpg
     - Images/money.png

@@ -75,7 +75,7 @@ class _forget_passwordState extends State<forget_password> {
                 try {
                   var res = await http.post(
                       Uri.parse(
-                          "https://sportclubff.com/api/forget/password"),
+                          "https://gamezonetour.com/api/forget/password"),
                       headers: requestHeaders,
                       body: jsonEncode(
                           {'phone': _controller.text}));

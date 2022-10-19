@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marquee/marquee.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -16,6 +17,7 @@ import 'package:sports_club/Screens/MainHome/Daily_matches/Daily_matces_clash_sq
 import 'package:sports_club/Screens/MainHome/Daily_matches/cs_tournament.dart';
 import 'package:sports_club/Screens/MainHome/Full_map_free_fire/Full_map_Free_fire.dart';
 import'package:http/http.dart'as http;
+import 'package:sports_club/Screens/MainHome/me/ludo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../classic_tournament.dart';
@@ -67,9 +69,33 @@ class _playState extends State<play> {
       print("post have no Data${response.body}");
     }
   }
+  var badge_text;
+  Future badge() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
 
+    Map<String, String> requestHeaders = {
+      'Accept': 'application/json',
+      'authorization': "Bearer $token"
+    };
 
-  Future count;
+    var response = await http.get(Uri.parse(AppUrl.notice), headers: requestHeaders);
+    if (response.statusCode == 200) {
+      print('Get post collected' + response.body);
+      var userData1 = jsonDecode(response.body)['data'];
+      print('try');
+      print(userData1);
+      setState(() {
+        badge_text=userData1['notice'];
+      });
+
+      return userData1;
+    } else {
+      print("post have no Data${response.body}");
+    }
+  }
+
+  Future count;var l;
   Future count_match() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
@@ -91,6 +117,8 @@ class _playState extends State<play> {
         f=userData1['f'];
         cs=userData1['a'];
         classic=userData1['b'];
+        l=userData1['l'];
+
       });
       return userData1;
     } else {
@@ -116,7 +144,7 @@ var f,p;
     super.initState();
     slide=emergency();
     count=count_match();
-
+    badge();
     func();
     notification_timer=Timer.periodic(Duration(seconds: 15), (_) => count=count_match());
   }
@@ -163,7 +191,7 @@ var f,p;
                                 ),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-                                    Container(
+                                   snapshot.data.length>0? Container(
                                       height: height/5,
                                       width: width/1,
                                       child: InkWell(
@@ -177,7 +205,7 @@ var f,p;
                                             throw "Could not launch $url";
                                           },
                                           child: Image.network(AppUrl.pic_url1+snapshot.data[itemIndex]['images'],fit: BoxFit.cover,))
-                                    ),
+                                    ):Container(),
                               ),
                             ),
                           )
@@ -187,6 +215,27 @@ var f,p;
                     }
                     return CircularProgressIndicator();
                   })),
+          Container(
+            height:height/25,
+            width: width,
+            decoration: BoxDecoration(
+              color:  Color(0xFF2C3249),
+            ),
+            child :Marquee(
+              text: badge_text!=null?badge_text:' dfsdf',
+              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,),
+              scrollAxis: Axis.horizontal,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              blankSpace: 20.0,
+              velocity: 30.0,
+              pauseAfterRound: Duration(seconds: 1),
+              startPadding: 5.0,
+              accelerationDuration: Duration(seconds: 1),
+              accelerationCurve: Curves.linear,
+              decelerationDuration: Duration(milliseconds: 400),
+              decelerationCurve: Curves.easeOut,
+            ),
+          ),
 
           Center(child:  Shimmer.fromColors(
             baseColor: Colors.grey,
@@ -231,7 +280,7 @@ var f,p;
                                 width: width/2,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2),
-                                    color:Color(0xff008080)
+                                    color:Color(0xfff58a42)
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -297,7 +346,7 @@ var f,p;
                                 width: width/2,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2),
-                                    color: Colors.blue
+                                    color: Color(0xFFff408c),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -392,7 +441,7 @@ var f,p;
                                 width: width/2,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2),
-                                    color:Color(0xff008080)
+                                    color:Color(0xfff58a42)
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -457,7 +506,7 @@ var f,p;
                                 width: width/2,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2),
-                                    color: Colors.blue
+                                    color: Color(0xFFff408c),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -514,7 +563,104 @@ var f,p;
                   ],
                 )
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                width: width/1,
+                child:Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
+
+                      children: [
+
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right:8.0,top:8.0,),
+                            child: InkWell(
+                              onTap: (){
+                                l==0? Fluttertoast.showToast(
+
+                                    msg: "No matches found!!",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0):   Navigator.push(context, MaterialPageRoute(builder: (_)=>ludo(type: 'l',image: 'Images/f5.jpeg',)));
+                              },
+                              child: Container(
+    height:height/6.8,
+
+                                width: width/2,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(2),
+                                    image: DecorationImage(
+                                        image: AssetImage("Images/f5.jpeg"),
+                                        fit: BoxFit.cover
+                                    )                                    ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircularProfileAvatar(
+                                          null,
+
+                                          child: Image.asset("Images/f5.jpeg",fit: BoxFit.cover,),
+                                          elevation: 5,
+                                          radius: 20
+
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                            " LUDO",style:GoogleFonts.lato(
+
+                                            color:Colors.white,fontWeight: FontWeight.w600,fontSize: 14
+                                        )
+                                        ),
+                                      ),Padding(
+                                        padding: const EdgeInsets.only(left:8.0),
+                                        child: l==0?Text(
+                                            "0 Matches Found",style:GoogleFonts.lato(
+
+                                            color:Colors.white,fontWeight: FontWeight.w600,fontSize: 14
+                                        )
+                                        ):Text(
+                                            l!=null?"$l Matches Found":".. Matches Found ",style:GoogleFonts.lato(
+
+                                            color:Colors.white,fontWeight: FontWeight.w600,fontSize: 14
+                                        )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+            ),
+          ),
+          // Container(
+          //     height: height/7,
+          //     width: width,
+          //     decoration: BoxDecoration(
+          //         image: DecorationImage(
+          //             image: AssetImage("Images/f5.jpeg"),
+          //             fit: BoxFit.cover
+          //         )     ,
+          //         borderRadius: BorderRadius.circular(15)
+          //
+          //     )
+          // ),
 
 
         ],

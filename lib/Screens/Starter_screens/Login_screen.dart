@@ -145,7 +145,29 @@ if(issave==true){
 }
 
   }
+  var signup_link='';
+  Future badge() async {
 
+
+    Map<String, String> requestHeaders = {
+      'Accept': 'application/json',
+    };
+
+    var response = await http.get(Uri.parse(AppUrl.SignUp_link), headers: requestHeaders);
+    if (response.statusCode == 200) {
+      print('Get post collected' + response.body);
+      var userData1 = jsonDecode(response.body)['data'];
+      print('try');
+      print(userData1);
+      setState(() {
+        signup_link=userData1;
+      });
+
+      return userData1;
+    } else {
+      print("post have no Data${response.body}");
+    }
+  }
   getdata()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token=prefs.getString('token');
@@ -166,7 +188,8 @@ print('user '+user);
     // TODO: implement initState
     super.initState();
     func();
-  }
+
+    badge();  }
   @override
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
@@ -205,11 +228,8 @@ print('user '+user);
             children: [
               SizedBox(height:  MediaQuery.of(context).size.height/10,),
 
-              Image.asset('Images/app_icon.png',height: 150,width: 150,),
-              Padding(
-                padding: const EdgeInsets.only(left:70.0,right:70),
-                child: Divider(thickness: 10,color: Colors.white,),
-              ),              SizedBox(height:  MediaQuery.of(context).size.height/30,),
+              Image.asset('Images/app_icon.png',height: 200,width: 200,),
+                        SizedBox(height:  MediaQuery.of(context).size.height/30,),
 
               InkWell(
                 onTap: (){
@@ -227,45 +247,61 @@ print('user '+user);
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Column(children: [
-              TextFormField(
-                controller: email_, style: TextStyle(
-                  color: Colors.white
-              ),
-                  validator: (value)=>value.isEmpty?"Field Can't be empty":null,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide:BorderSide(color: Colors.white, width: 2.0),),
-                    hintText: "Phone",
-
-                    hintStyle: GoogleFonts.lato(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 18
-                    )
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left:8.0),
+                  child: TextFormField(
+                    controller: email_, style: TextStyle(
+                      color: Colors.black
                   ),
-              ),
-                    SizedBox(height: height/15,),
-                    Column(
-                      children: [
-                        TextFormField(
-                controller: password_,
-                          obscureText: true,
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                  validator: (value)=>value.isEmpty?"Field Can't be empty":null,
-                  decoration: InputDecoration(
+                      validator: (value)=>value.isEmpty?"Field Can't be empty":null,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "    Phone",
 
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),),
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide:BorderSide(color: Colors.white, width: 2.0),),
-                        hintText: "Password",
                         hintStyle: GoogleFonts.lato(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
                             fontSize: 18
                         )
+                      ),
+                  ),
+                ),
+              ),
+                    SizedBox(height: height/25,),
+                    Column(
+                      children: [
+                        Container(decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25)
+                        ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:8.0),
+                            child: TextFormField(
+                controller: password_,
+                              obscureText: true,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                  validator: (value)=>value.isEmpty?"Field Can't be empty":null,
+                  decoration: InputDecoration(
+
+                      border: InputBorder.none,
+
+                      hintText: "    Password",
+                            hintStyle: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 18
+                            )
                   ),
               ),
+                          ),
+                        ),
                         SizedBox(height: 10,),
                         Align(
                           alignment: Alignment.topRight,
@@ -298,8 +334,8 @@ print('user '+user);
 
                 },
                 child: Container(
-                  height: height/15,
-                  width: width/2,
+                  height: height/25,
+                  width: width/2.5,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -316,7 +352,31 @@ print('user '+user);
                 ),
               ):SpinKitThreeInOut(color: Colors.white,size: 20,),
               SizedBox(height:  MediaQuery.of(context).size.height/50,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap:()async{
+                    var url='https://t.me/Sportclubadmin';
 
+                    if (await canLaunch(signup_link))
+                      await launch(signup_link);
+                    else
+                      // can't launch url, there is some error
+                      throw "Could not launch $url";
+                  },                  child: Container(
+                    child: Row(                  mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        Text("How to Sign up  ",style: GoogleFonts.lato(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16
+                        )),Icon(Icons.video_collection_rounded,color: Colors.white,size: 30,)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               Align(
                 alignment: Alignment.center,
                 child: Row(
@@ -352,7 +412,7 @@ print('user '+user);
                         fontSize: 16
                     )),InkWell(
                       onTap:()async{
-                        var url='https://t.me/Sportclubadmin';
+                        var url='https://wa.me/message/ZGDEF2ZHDANOE1';
 
                         if (await canLaunch(url))
                           await launch(url);

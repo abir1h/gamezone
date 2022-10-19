@@ -367,7 +367,7 @@ class _meState extends State<me> {
                     ),
                     ListTile(
                       onTap: (){
-                        Share.share('check out my website https://example.com', subject: 'Look what I made!');
+                        Share.share('check out my website https://gamezonetour.com/', subject: 'Look what I made!');
                       },
                       leading: Icon(
                         Icons.share,

@@ -1,13 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sportsclub.codecell">
+    package="com.codecell.gamezone">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE" />
    <application
-        android:label="Sport Club"
+        android:label="Game Zone"
        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
-
+       <provider
+           android:name="sk.fourq.otaupdate.OtaUpdateFileProvider"
+           android:authorities="${applicationId}.ota_update_provider"
+           android:exported="false"
+           android:grantUriPermissions="true">
+           <meta-data
+               android:name="android.support.FILE_PROVIDER_PATHS"
+               android:resource="@xml/filepaths" />
+       </provider>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

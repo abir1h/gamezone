@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -525,6 +526,9 @@ var val,val2,val3,val4;
                                                               child: Column(
                                                                 children: [
                                                                   TextFormField(
+                                                                    inputFormatters: [
+                                                                      new  FilteringTextInputFormatter.allow(RegExp("[0-9a-zA-Z]")),
+                                                                    ],
                                                                     controller:
                                                                         player1,
                                                                     validator: (v) => v

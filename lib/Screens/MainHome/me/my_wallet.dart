@@ -501,14 +501,12 @@ class _my_walletState extends State<my_wallet> {
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Row(children: [
-                                                                Flexible(child: Icon(Icons.play_circle_fill_outlined,color: Colors.redAccent,)),
-                                                                Flexible(
-                                                                  child: Text(snapshot.data['tutorial'][index]['english_title'],
-                                                                      style: GoogleFonts.lato(
-                                                                          color: Colors.grey,
-                                                                          fontWeight: FontWeight.w500,
-                                                                          fontSize: 14)),
-                                                                ),
+                                                                Icon(Icons.play_circle_fill_outlined,color: Colors.redAccent,),
+                                                                Text(snapshot.data['tutorial'][index]['english_title'],
+                                                                    style: GoogleFonts.lato(
+                                                                        color: Colors.grey,
+                                                                        fontWeight: FontWeight.w500,
+                                                                        fontSize: 14)),
 
 
                                                               ],),
@@ -535,9 +533,8 @@ class _my_walletState extends State<my_wallet> {
                                                            throw "Could not launch $url";
 
                                                          },
-                                                              icon: IconButton(icon:  Icon(Icons.play_circle_fill_outlined,color: Colors.redAccent,),
-                                                              ),
-                                                              label: Flexible(child: Text("ভিডিও দেখুন",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),)),
+                                                              icon:Icon(Icons.play_circle_fill_outlined,color: Colors.redAccent,),
+                                                              label: Text("ভিডিও দেখুন",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
                                                               style: ButtonStyle(
                                                                 backgroundColor: MaterialStateProperty.all(Colors.blue),
                                                               ),
@@ -565,22 +562,36 @@ Center(child: Padding(
   ),
 ),),
 
-                      ElevatedButton.icon(
-onPressed:()async{
-  var url=telegram_link;
-  if (await canLaunch(url))
-    await launch(url);
-  else
-    // can't launch url, there is some error
-    throw "Could not launch $url";
-},
-                        icon: IconButton(icon:  Icon(Icons.message,color: Colors.white,),
+//                       ElevatedButton.icon(
+// onPressed:()async{
+//   var url=telegram_link;
+//   if (await canLaunch(url))
+//     await launch(url);
+//   else
+//     // can't launch url, there is some error
+//     throw "Could not launch $url";
+// },
+//                         icon: Icon(Icons.message,color: Colors.white,),
+//                         label: Text("Contact Us",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
+//                         style: ButtonStyle(
+//                           backgroundColor: MaterialStateProperty.all(Colors.green),
+//                         ),
+//                       )
+                    Container(
+                      color: Colors.green,
+                      child:
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.message,color: Colors.white,),
+                            Text("Contact Us",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
+
+                          ],
                         ),
-                        label: Flexible(child: Text("Contact Us",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),)),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.green),
-                        ),
-                      )
+                      ),
+                    )
                     ],
                   ),
                 ),

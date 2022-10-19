@@ -19,13 +19,13 @@ class _developer_pageState extends State<developer_page> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.call,color: Colors.white,),
-          label: Text('Visit Us',style: GoogleFonts.lato(
+          label: Text('Message Us',style: GoogleFonts.lato(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.w600
             )),
           onPressed: ()async{
-var url='https://codecell.com.bd/';
+var url='http://m.me/codecell.com.bd';
               if (await canLaunch(url))
                 await launch(url);
               else
